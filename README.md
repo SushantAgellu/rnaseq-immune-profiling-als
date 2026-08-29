@@ -1,7 +1,40 @@
-# 001_Data_analysis
+# RNA-seq Immune Profiling in ALS
 
-**Semester 3 — Data Analysis Course Project**  
+**Semester 3 — Data Analysis Course Project (SLU)**  
 Differential gene expression re-analysis of peripheral immune cells in **Amyotrophic Lateral Sclerosis (ALS)** using the publicly available **GSE60424** RNA-seq dataset.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## TL;DR
+
+Reprocessed public RNA-seq data (GSE60424) to compare **7 sorted immune cell types** from ALS patients vs. healthy controls using **DESeq2**. Neutrophils and monocytes carried 2–3× more differentially expressed genes than the adaptive immune cell types, with a consistent **down-regulation of interferon-response genes** (IFI44, ISG15, OAS2/3, etc.) shared across both — pointing to a blunted innate antiviral response in ALS. 17 genes replicate as "consensus DEGs" across both cell types.
+
+## Key Results
+
+| Global PCA | Neutrophil Volcano | Consensus Heatmap |
+|---|---|---|
+| ![Global PCA](03_DataAnalysis/02_Visualization/02_PCA_Global.png) | ![Neutrophil Volcano](03_DataAnalysis/02_Visualization/06_Volcano_Neutrophils.png) | ![Consensus Heatmap](03_DataAnalysis/02_Visualization/10_Consensus_Heatmap_Neutrophils_Monocytes.png) |
+| Cell-type identity dominates global variance (PC1 = 56%), motivating a per-cell-type analysis | Neutrophils show the largest DEG signature (38 genes) of any cell type | 17 genes replicate across Neutrophils and Monocytes — the highest-confidence ALS signature in this study |
+
+See [Section 9](#9-key-findings) for the full DEG table across all 7 cell types.
+
+## Table of Contents
+
+1. [What is your Question?](#1-what-is-your-question)
+2. [What is your Response Variable?](#2-what-is-your-response-variable)
+3. [What are your Predictor Variables?](#3-what-are-your-predictor-variables)
+4. [Unit of Replication](#4-unit-of-replication)
+5. [Statistical Approach](#5-statistical-approach)
+6. [Repository Structure](#6-repository-structure)
+7. [How to Reproduce](#7-how-to-reproduce)
+8. [Key Design Decisions](#8-key-design-decisions)
+9. [Key Findings](#9-key-findings)
+10. [Data Source](#10-data-source)
+11. [Key Versions](#11-key-versions)
+12. [References](#12-references)
+13. [Code of Ethics & Data Use Compliance](#13-code-of-ethics--data-use-compliance)
+14. [License](#14-license)
+15. [Author](#15-author)
 
 
 ## 1. What is your Question?
@@ -72,10 +105,13 @@ Secondary question: *Are any differentially expressed genes shared across multip
 
 The repository is organized into numbered folders matching the order of execution:
 
-001_Data_analysis/
+rnaseq-immune-profiling-als/
 ├── README.md                           # This file
+├── LICENSE                             # MIT license
 ├── .gitignore
 ├── 001_Data_analysis.Rproj             # RStudio project file
+├── ALS_Final_Report.pdf                # Written project report
+├── ALS_Final_Presentation.pptx         # Slide deck
 │
 ├── 00_DataFiles/                       # Raw inputs from GEO
 │   ├── GSE60424_metadata.csv
@@ -92,16 +128,14 @@ The repository is organized into numbered folders matching the order of executio
 │   ├── 02_DataExploration.Rmd
 │   ├── PCA_plot_ALS.png
 │   └── PCA_plot_T1D.png
-|     
-|
-|
+│
 └── 03_DataAnalysis/                    # STEP 3: analysis + visualization
        ├── 01_StatisticalAnalysis.Rmd      # DESeq2 pipeline
        ├── 01_StatisticalAnalysis.html
        ├── 01_StatisticalAnalysis/         # auto-created outputs
        ├── 02_Visualization.Rmd            # Plotting pipeline
        ├── 02_Visualization.html
-       |__ 02_Visualization/               # auto-created outputs
+       └── 02_Visualization/               # auto-created outputs
 
 
 
@@ -172,7 +206,7 @@ DESeq2 is the field-standard method for small-sample RNA-seq differential expres
 **Biological takeaways:**
 - **Innate > adaptive:** Neutrophils and monocytes carry ~2–3× more DEGs than T and B cells.
 - **17 consensus DEGs** are shared between Neutrophils and Monocytes.
-- **Interferon-response genes** (IFI44, IFI44L, IFIT1, IFI6, OAS2, OAS3, OASL, CMPK2, XAF1, ISG15) are consistently **down-regulated in ALS** in both cell types — suggesting a blunted type-I interferon response in ALS innate immunity. That acn cause a Immune imbalance and can be used in ** diagnostics** .
+- **Interferon-response genes** (IFI44, IFI44L, IFIT1, IFI6, OAS2, OAS3, OASL, CMPK2, XAF1, ISG15) are consistently **down-regulated in ALS** in both cell types — suggesting a blunted type-I interferon response in ALS innate immunity. This immune imbalance may have diagnostic potential as a biomarker signature.
 
 
 
@@ -185,7 +219,7 @@ DESeq2 is the field-standard method for small-sample RNA-seq differential expres
 
 
 
-## 11. Key versionsthat you would need .
+## 11. Key Versions
 - R 4.5.0
 - DESeq2 1.48.1
 - ggplot2 4.0.2
@@ -201,13 +235,12 @@ DESeq2 is the field-standard method for small-sample RNA-seq differential expres
 3. **Beers DR, Appel SH.** (2019). Immune dysregulation in amyotrophic lateral sclerosis. *Lancet Neurology* 18(2): 211–220.
 4. **Murdock BJ, et al.** (2017). Correlation of peripheral immunity with rapid ALS progression. *JAMA Neurology* 74(12): 1446–1454.
 
-## 13. Code of ethics 
-## Code of Ethics & Data Use Compliance
+## 13. Code of Ethics & Data Use Compliance
 
-In thisproject only publicly archived human RNA-seq data was utilized and is therefore governed by codes of ethics covering 
+In this project, only publicly archived human RNA-seq data was utilized, and the work is therefore governed by codes of ethics covering
 (a) the data source
 (b) human genomic data sharing
-(c) responsible conduct in human-genetics research. 
+(c) responsible conduct in human-genetics research.
 
 ### 1. NCBI GEO Data Use Policy
 
@@ -236,4 +269,11 @@ This is the framework GEO operates under.The GDS Policy covers all NIH-funded re
 - Data are not re-distributed; the cleaned files committed to this repository are derived analytical outputs (filtered count matrices, DEG tables, normalized expression for visualization), not the raw deposit.
 
 
+## 14. License
+
+This project's code is released under the [MIT License](LICENSE). The underlying RNA-seq data belongs to GEO accession GSE60424 (Linsley et al., 2014) and is subject to the data-use terms in [Section 13](#13-code-of-ethics--data-use-compliance).
+
+## 15. Author
+
+**Sushant Agellu** — [GitHub](https://github.com/SushantAgellu)
 
