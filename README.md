@@ -5,6 +5,8 @@ Differential gene expression re-analysis of peripheral immune cells in **Amyotro
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+**[View the full rendered analysis report](https://sushantagellu.github.io/rnaseq-immune-profiling-als/03_DataAnalysis/02_Visualization.html)** — no cloning or knitting required.
+
 ## TL;DR
 
 Reprocessed public RNA-seq data (GSE60424) to compare **7 sorted immune cell types** from ALS patients vs. healthy controls using **DESeq2**. Neutrophils and monocytes carried 2–3× more differentially expressed genes than the adaptive immune cell types, with a consistent **down-regulation of interferon-response genes** (IFI44, ISG15, OAS2/3, etc.) shared across both — pointing to a blunted innate antiviral response in ALS. 17 genes replicate as "consensus DEGs" across both cell types.
